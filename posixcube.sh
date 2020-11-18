@@ -9,9 +9,9 @@ POSIXCUBE_VERSION=0.2.1
 # On why we don't use `set -e` or `set -u`, see the Philosophy section, #2.
 
 p_show_usage() {
-  if [ ${#} -ne 0 ]; then
-    p_printf_error "${@}"
-  fi
+  case $# in (0) :
+           ;;(*) p_printf_error "$@"
+  ;;esac
 
   cat <<'HEREDOC'
 usage: posixcube.sh -h HOST... [-l] [-c CUBE_DIR...] [OPTION]... COMMAND...
@@ -506,13 +506,13 @@ Public Variables:
 Source: https://github.com/myplaceonline/posixcube
 HEREDOC
 
-  if [ $# -ne 0 ]; then
-    p_printf_error "${@}"
-  fi
+  case $# in (0) :
+           ;;(*) p_printf_error "$@"
+  ;;esac
 
-  if [ "${POSIXCUBE_SOURCED}" = "" ]; then
+  case "${POSIXCUBE_SOURCED}" in ('')
     exit 1
-  fi
+  ;;esac
 }
 
 ###############
